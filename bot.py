@@ -240,7 +240,7 @@ def startRMCSA(bot,update):
     except:
         update.message.reply_text(f"No new game, type /new_game for a new game.")
 
-updater = Updater("1239623089:AAEwhfrgBXLMJ_kmimgMLh1qtv7FdGq5Mpk")
+updater = Updater("TOKEN")
 dp = updater.dispatcher
 dp.add_handler(CommandHandler("join", join))
 dp.add_handler(CommandHandler("start", add_user))
