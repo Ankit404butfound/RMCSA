@@ -26,7 +26,7 @@ def cancel(bot,update):
     rounds_completed = 0
     chor = ""
     king = ""
-    update.message.reply_text("*Game Canceled*", parse_mode="MARKDOWN")
+    update.message.reply_text("*Running game Cancelled, if any*", parse_mode="MARKDOWN")
 
 def get_userdata():
     try:
@@ -253,7 +253,7 @@ def startRMCSA(bot,update):
             game_condn = True
 
         else:
-            update.message.reply_text(f"Game must have at least 4 players")
+            update.message.reply_text(f"Game must be running and have at least 4 players")
         
     except:
         update.message.reply_text(f"No new game, type /new_game for a new game.")
