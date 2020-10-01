@@ -13,6 +13,7 @@ get_chor = False
 rounds_completed = 0
 chor = ""
 king = ""
+TOKEN = os.environ.get("TOKEN")
 
 def get_userdata():
     try:
@@ -241,12 +242,16 @@ def startRMCSA(bot,update):
     except:
         update.message.reply_text(f"No new game, type /new_game for a new game.")
 
-updater = Updater(os.environ.get("TOKEN")
+updater = Updater(TOKEN)
 dp = updater.dispatcher
 dp.add_handler(CommandHandler("join", join))
 dp.add_handler(CommandHandler("start", add_user))
 dp.add_handler(CommandHandler("new_game", newRMCSA))
 dp.add_handler(CommandHandler("start_game", startRMCSA))
 dp.add_handler(CommandHandler("chor", whoischor))
-updater.start_polling()
+#updater.start_polling()
+updater.start_webhook(listen="0.0.0.0",
+                          port=int(PORT),
+                          url_path=TOKEN)
+updater.bot.setWebhook('https://rmcsa.herokuapp.com/' + TOKEN)                                 
 updater.idle()
