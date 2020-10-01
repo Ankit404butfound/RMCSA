@@ -7,7 +7,7 @@ import os
 
 user_role_lst = []
 user_lst = []
-game_started = False
+game_condn = True
 GROUP = -402125669#-455705027
 get_chor = False
 rounds_completed = 0
@@ -17,10 +17,10 @@ TOKEN = os.environ.get("TOKEN")
 PORT = int(os.environ.get('PORT', 5000))
 
 def cancel(bot,update):
-    global user_role_lst, user_lst, game_started, GROUP, get_chor, rounds_completed, chor, king
+    global user_role_lst, user_lst, game_condn, GROUP, get_chor, rounds_completed, chor, king
     user_role_lst = []
     user_lst = []
-    game_started = False
+    game_condn = True
     GROUP = -402125669#-455705027
     get_chor = False
     rounds_completed = 0
@@ -133,7 +133,7 @@ def whoischor(bot,update):
 
 def join(bot,update):
     global user_lst
-    if len(user_lst) < 10 and not game_started:
+    if len(user_lst) < 10 and not game_condn:
         username = update.message.from_user.username
         if username in get_userdata():
             if username not in user_lst:
@@ -158,11 +158,14 @@ def join(bot,update):
     elif len(user_lst) >= 10:
         update.message.reply_text("Sorry, game full, wait for next game \U0001F605.")
 
+    elif game_condn:
+        update.message.reply_text("No running game in this group, use /new_game for a new game")
+        
     else:
         update.message.reply_text("Game has started \U0001F605")
 
 def allot_role(bot=None,update=None):
-    global count, solder, chor, get_chor, rounds_completed, user_lst, rounds, user_role_lst, game_started
+    global count, solder, chor, get_chor, rounds_completed, user_lst, rounds, user_role_lst, game_condn
     local_user_lst = []
     user_role_lst = []
     if rounds_completed < rounds:
@@ -216,8 +219,8 @@ def allot_role(bot=None,update=None):
     
     
 def newRMCSA(bot,update):
-    global game_started, rounds
-
+    global game_condn, rounds
+    game_condn = False
     to_be_updated = get_userdata()
     requests.get("http://rajma.pythonanywhere.com/retreve?uname=RMCSA&method=w&data=")
     to_be_updated_lst = to_be_updated.split("\n")
@@ -226,7 +229,7 @@ def newRMCSA(bot,update):
     message = update.message.text
     message = message.replace("/new_game","").strip()
 
-    if not game_started:
+    if not game_condn:
         
         try:
             rounds = int(message)
@@ -234,20 +237,20 @@ def newRMCSA(bot,update):
         except:
             rounds = 5
 
-        update.message.reply_text(f"Starting game with {rounds} rounds.\nType /join to join the game.")
+        update.message.reply_text(f"Starting game with {rounds} rounds.\nType /join to join the game.🤴🧑‍💼👨‍🦲💂‍♀️ 👩‍🦱")
     else:
         update.message.reply_text(f"A game is already running")
     
     #print(user_lst)
      
 def startRMCSA(bot,update):
-    global game_started
+    global game_condn
     try:
         if len(user_lst) >= 4:
         
             update.message.reply_text(f"Starting game with {len(user_lst)} players.")
             allot_role(bot=bot,update=update)
-            game_started = True
+            game_condn = True
 
         else:
             update.message.reply_text(f"Game must have at least 4 players")
