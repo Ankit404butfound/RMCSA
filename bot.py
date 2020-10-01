@@ -74,7 +74,7 @@ def whoischor(bot,update):
         if int(solder_chatid) == int(update.message.chat_id):
             message = update.message.text
             message = message.replace("/","").strip()
-            bot.send_message((solder_chatid,"Thank you for selecting, please open the main group.")
+            bot.send_message(solder_chatid,"Thank you for selecting, please open the main group.")
             bot.send_message(GROUP,f"@{solder} selected @{message} as CHOR(Thief)")
             if message == chor:
                 bot.send_message(GROUP, f"@{solder} guessed correctly, you earn +5 points.")
