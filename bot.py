@@ -220,6 +220,14 @@ def allot_role(bot=None,update=None):
     
 def newRMCSA(bot,update):
     global game_condn, rounds
+    user_role_lst = []
+    user_lst = []
+    game_condn = True
+    GROUP = -402125669#-455705027
+    get_chor = False
+    rounds_completed = 0
+    chor = ""
+    king = ""
     game_condn = False
     to_be_updated = get_userdata()
     requests.get("http://rajma.pythonanywhere.com/retreve?uname=RMCSA&method=w&data=")
@@ -238,14 +246,7 @@ def newRMCSA(bot,update):
             rounds = 5
 
         update.message.reply_text(f"Starting game with {rounds} rounds.\nType /join to join the game.🤴🧑‍💼👨‍🦲💂‍♀️ 👩‍🦱")
-        user_role_lst = []
-        user_lst = []
-        game_condn = True
-        GROUP = -402125669#-455705027
-        get_chor = False
-        rounds_completed = 0
-        chor = ""
-        king = ""
+        
     else:
         update.message.reply_text(f"A game is already running")
     
