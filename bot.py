@@ -16,6 +16,18 @@ king = ""
 TOKEN = os.environ.get("TOKEN")
 PORT = int(os.environ.get('PORT', 5000))
 
+def cancel(bot,update):
+    global user_role_lst, user_lst, game_started, GROUP, get_chor, rounds_completed, chor, king
+    user_role_lst = []
+    user_lst = []
+    game_started = False
+    GROUP = -402125669#-455705027
+    get_chor = False
+    rounds_completed = 0
+    chor = ""
+    king = ""
+    update.message.reply_text("*Game Canceled*", parse_mode="MARKDOWN")
+
 def get_userdata():
     try:
         data = requests.get("http://rajma.pythonanywhere.com/retreve?uname=RMCSA&method=r").text
@@ -250,6 +262,7 @@ dp.add_handler(CommandHandler("start", add_user))
 dp.add_handler(CommandHandler("new_game", newRMCSA))
 dp.add_handler(CommandHandler("start_game", startRMCSA))
 dp.add_handler(CommandHandler("chor", whoischor))
+dp.add_handler(CommandHandler("cancel_game", cancel))
 #updater.start_polling()
 updater.start_webhook(listen="0.0.0.0",
                           port=int(PORT),
