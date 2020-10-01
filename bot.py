@@ -3,6 +3,7 @@ from telegram import Update, Bot
 import random
 import time
 import requests
+import os
 
 user_role_lst = []
 user_lst = []
@@ -240,7 +241,7 @@ def startRMCSA(bot,update):
     except:
         update.message.reply_text(f"No new game, type /new_game for a new game.")
 
-updater = Updater("TOKEN")
+updater = Updater(os.environ.get("TOKEN")
 dp = updater.dispatcher
 dp.add_handler(CommandHandler("join", join))
 dp.add_handler(CommandHandler("start", add_user))
