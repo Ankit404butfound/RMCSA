@@ -66,9 +66,15 @@ def whoischor(bot,update):
     global rounds_completed, chor, solder, user_role_lst
     if get_chor:
         username = update.message.chat.username
-        if username == solder:
+        alluser = get_userdata().split("\n")
+        for u_data in alluser:
+            if username in u_data:
+                solder_chatid = u_data.split()[1]
+                break
+        if int(solder_chatid) == int(update.message.chat_id):
             message = update.message.text
-            message = message.replace("/chor @","").strip()
+            message = message.replace("/","").strip()
+            bot.send_message((solder_chatid,"Thank you for selecting, please open the main group.")
             bot.send_message(GROUP,f"@{solder} selected @{message} as CHOR(Thief)")
             if message == chor:
                 bot.send_message(GROUP, f"@{solder} guessed correctly, you earn +5 points.")
@@ -200,18 +206,29 @@ def allot_role(bot=None,update=None):
             if "SIPAHI(Soldier)" in roles:
                 #print(roles)
                 solder = roles.split(":")[0]
-                bot.send_message(GROUP,f"RAJA(king) is @{king}\nSIPAHI(Soldier) is @{roles.split(':')[0]}\n@{roles.split(':')[0]} please discuss with others and select whom do you think is CHOR(Thief), in our private chat.")
+                bot.send_message(GROUP,f"*Rounds Completed : {rounds_completed}*\nRAJA(king) is @{king}\nSIPAHI(Soldier) is @{roles.split(':')[0]}\n@{roles.split(':')[0]} please discuss with others and select whom do you think is CHOR(Thief), in our private chat.",parse_mode="MARKDOWN")
                 break
+        suspect_str = ""
         alluser = get_userdata().split("\n")
         for udata in alluser:
             if solder in udata:
                 solder_chatid = udata.split()[1]
                 break
+        sus_lst = []
+        for users in user_lst:
+            sus_lst.append(users)
+        sus_lst.remove(solder)
+        sus_lst.remove(king)
+        print(sus_lst)
+        for users in sus_lst:
+            suspect_str = suspect_str + "/" + users + "\n"
+        bot.send_message(solder_chatid,"Who do you think is CHOR(Thief), click on their name\n"+  suspect_str)
+        get_chor = True
     ##    solder_message = user_lst
     ##    solder_message.remove(solder)
         
-        bot.send_message(solder_chatid,"Who do you think is CHOR(Thief), reply with '/chor' followed by their username either here or in group.")
-        get_chor = True
+#        bot.send_message(solder_chatid,"Who do you think is CHOR(Thief), reply with '/chor' followed by their username either here or in group.")
+#        get_chor = True
 
     else:
         bot.send_message(GROUP,"Game finished")
@@ -219,11 +236,11 @@ def allot_role(bot=None,update=None):
     
     
 def newRMCSA(bot,update):
-    global game_condn, rounds
+    global game_condn, rounds, user_role_lst, user_lst, GROUP, get_chor, rounds_completed, chor, king
     user_role_lst = []
     user_lst = []
     game_condn = True
-    GROUP = -402125669#-455705027
+    GROUP = update.message.chat_id#-402125669#-455705027
     get_chor = False
     rounds_completed = 0
     chor = ""
@@ -274,8 +291,9 @@ dp.add_handler(CommandHandler("join", join))
 dp.add_handler(CommandHandler("start", add_user))
 dp.add_handler(CommandHandler("new_game", newRMCSA))
 dp.add_handler(CommandHandler("start_game", startRMCSA))
-dp.add_handler(CommandHandler("chor", whoischor))
+#dp.add_handler(CommandHandler("chor", whoischor))
 dp.add_handler(CommandHandler("cancel_game", cancel))
+dp.add_handler(MessageHandler(Filters.text,whoischor))
 #updater.start_polling()
 updater.start_webhook(listen="0.0.0.0",
                           port=int(PORT),
