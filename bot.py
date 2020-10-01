@@ -8,7 +8,7 @@ import os
 user_role_lst = []
 user_lst = []
 game_condn = True
-GROUP = -402125669#-455705027
+GROUP = -455705027#-402125669#
 get_chor = False
 rounds_completed = 0
 chor = ""
