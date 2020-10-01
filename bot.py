@@ -209,7 +209,7 @@ def allot_role(bot=None,update=None):
                 break
     ##    solder_message = user_lst
     ##    solder_message.remove(solder)
-        suspect
+        
         bot.send_message(solder_chatid,"Who do you think is CHOR(Thief), reply with '/chor' followed by their username either here or in group.")
         get_chor = True
 
@@ -238,6 +238,14 @@ def newRMCSA(bot,update):
             rounds = 5
 
         update.message.reply_text(f"Starting game with {rounds} rounds.\nType /join to join the game.🤴🧑‍💼👨‍🦲💂‍♀️ 👩‍🦱")
+        user_role_lst = []
+        user_lst = []
+        game_condn = True
+        GROUP = -402125669#-455705027
+        get_chor = False
+        rounds_completed = 0
+        chor = ""
+        king = ""
     else:
         update.message.reply_text(f"A game is already running")
     
@@ -255,8 +263,9 @@ def startRMCSA(bot,update):
         else:
             update.message.reply_text(f"Game must be running and have at least 4 players")
         
-    except:
-        update.message.reply_text(f"No new game, type /new_game for a new game.")
+    except Exception as e:
+        #update.message.reply_text(f"{e}")
+        pass
 
 updater = Updater(TOKEN)
 dp = updater.dispatcher
