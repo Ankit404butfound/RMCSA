@@ -206,7 +206,7 @@ def allot_role(bot=None,update=None):
             if "SIPAHI(Soldier)" in roles:
                 #print(roles)
                 solder = roles.split(":")[0]
-                bot.send_message(GROUP,f"*Rounds Completed : {rounds_completed}*\nRAJA(king) is @{king}\nSIPAHI(Soldier) is @{roles.split(':')[0]}\n@{roles.split(':')[0]} please discuss with others and select whom do you think is CHOR(Thief), in our private chat.",parse_mode="MARKDOWN")
+                bot.send_message(GROUP,f"Rounds Completed : {rounds_completed + 1}\nRAJA(king) is @{king}\nSIPAHI(Soldier) is @{roles.split(':')[0]}\n@{roles.split(':')[0]} please discuss with others and select whom do you think is CHOR(Thief), in our private chat.")
                 break
         suspect_str = ""
         alluser = get_userdata().split("\n")
