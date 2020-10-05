@@ -107,56 +107,57 @@ def whoischor(bot,update):
         
         if int(solder) == int(update.message.chat_id):
             message = update.message.text
-            message = message.replace("/","").strip()
-            message = username_id_dic[message]
-            bot.send_message(GROUP,f"{mention_markdown(solder,id_user_dic[solder])} selected {mention_markdown(message,id_user_dic[message])} as CHOR(Thief)",parse_mode="Markdown")
-            if int(message) == int(chor):
-                bot.send_message(GROUP, f"{mention_markdown(solder,id_user_dic[solder])} guessed correctly, you earn 500 points.",parse_mode="Markdown")
-                score = user_point_dic[solder]
-                user_point_dic[solder] = score+sipahi_score
-                
-##                for data in alldata_lst:
-##                    if chor in data:
-##                        chor_score = int(data.split()[2])
-##                        #alldata = alldata.replace(data,f"{data.split()[0]} {chor} 0")
-##                        updatetxt(data,f"{data.split()[0]} {data.split()[1]} 0")
-                        
-##                for data in alldata_lst:
-##                    if solder in data:
-##                        solder_score = int(data.split()[2])
-##                        updatetxt(data,f"{data.split()[0]} {data.split()[1]} {solder_score+5}")
-                        
-                
-            else:
-                bot.send_message(GROUP, f"{mention_markdown(solder,id_user_dic[solder])} guess is wrong, {mention_markdown(chor,id_user_dic[chor])} who is CHOR(Thief) gets 500 points and {mention_markdown(message,id_user_dic[message])} who was wrongly blamed to be CHOR(Thief) gets 300 bonus points.",parse_mode="Markdown")
-                score = user_point_dic[solder]
-                user_point_dic[solder] = score-500
-                score = user_point_dic[message]
-                user_point_dic[message] = score+300
+            if "/" in message:
+                message = message.replace("/","").strip()
+                message = username_id_dic[message]
+                bot.send_message(GROUP,f"{mention_markdown(solder,id_user_dic[solder])} selected {mention_markdown(message,id_user_dic[message])} as CHOR(Thief)",parse_mode="Markdown")
+                if int(message) == int(chor):
+                    bot.send_message(GROUP, f"{mention_markdown(solder,id_user_dic[solder])} guessed correctly, you earn 500 points.",parse_mode="Markdown")
+                    score = user_point_dic[solder]
+                    user_point_dic[solder] = score+sipahi_score
 
-        for id in chatid_lst:
-            role = user_role_dic[id]
-            if role == "AAM AADMI(Civilian)":
-                score = user_point_dic[id]
-                user_point_dic[id] = score+aam_score
-            if role == "RAJA(king)":
-                score = user_point_dic[id]
-                user_point_dic[id] = score+king_score
-            if role == "MANTRI(Minister)":
-                score = user_point_dic[id]
-                user_point_dic[id] = score+mantri_score
-        
-        
-        data_string = ""
-        for i in range(len(chatid_lst)):
-            user_id = chatid_lst[i]
-            name = name_lst[i]
-            score = user_point_dic[user_id]
-            data_string = data_string+"\n"+mention_markdown(user_id,name)+" : "+str(score)
-        bot.send_message(GROUP,f"Final score is as followed{data_string}",parse_mode="Markdown")
-        time.sleep(5)
-        round_com += 1
-        allot_role(bot=bot,update=update)
+    ##                for data in alldata_lst:
+    ##                    if chor in data:
+    ##                        chor_score = int(data.split()[2])
+    ##                        #alldata = alldata.replace(data,f"{data.split()[0]} {chor} 0")
+    ##                        updatetxt(data,f"{data.split()[0]} {data.split()[1]} 0")
+
+    ##                for data in alldata_lst:
+    ##                    if solder in data:
+    ##                        solder_score = int(data.split()[2])
+    ##                        updatetxt(data,f"{data.split()[0]} {data.split()[1]} {solder_score+5}")
+
+
+                else:
+                    bot.send_message(GROUP, f"{mention_markdown(solder,id_user_dic[solder])} guess is wrong, {mention_markdown(chor,id_user_dic[chor])} who is CHOR(Thief) gets 500 points and {mention_markdown(message,id_user_dic[message])} who was wrongly blamed to be CHOR(Thief) gets 300 bonus points.",parse_mode="Markdown")
+                    score = user_point_dic[solder]
+                    user_point_dic[solder] = score-500
+                    score = user_point_dic[message]
+                    user_point_dic[message] = score+300
+
+                for id in chatid_lst:
+                    role = user_role_dic[id]
+                    if role == "AAM AADMI(Civilian)":
+                        score = user_point_dic[id]
+                        user_point_dic[id] = score+aam_score
+                    if role == "RAJA(king)":
+                        score = user_point_dic[id]
+                        user_point_dic[id] = score+king_score
+                    if role == "MANTRI(Minister)":
+                        score = user_point_dic[id]
+                        user_point_dic[id] = score+mantri_score
+
+
+                data_string = ""
+                for i in range(len(chatid_lst)):
+                    user_id = chatid_lst[i]
+                    name = name_lst[i]
+                    score = user_point_dic[user_id]
+                    data_string = data_string+"\n"+mention_markdown(user_id,name)+" : "+str(score)
+                bot.send_message(GROUP,f"Final score is as followed{data_string}",parse_mode="Markdown")
+                time.sleep(5)
+                round_com += 1
+                allot_role(bot=bot,update=update)
 
 
 def allot_role(bot=None,update=None):
