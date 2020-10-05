@@ -39,6 +39,32 @@ PORT = int(os.environ.get('PORT', 5000))
 #PORT = int(os.environ.get('PORT', 5000))
 updater = Updater(TOKEN)
 
+def cancel(bot,update):
+    global rounds,group_lst,get_chor,GROUP,username_lst,chatid_lst,name_lst,whose_chance,used_word_lst,user_num,round_com,user_lst,game_started,start_time,end_time,user_point_dic,id_user_dic,user_role_dic,username_id_dic,id_username_dic,chor,king
+    update.message.reply_text("Game CANCELED!!!")
+    
+    group_lst = []
+    GROUP = update.message.chat_id
+    username_lst = []
+    chatid_lst = []
+    name_lst = []
+    whose_chance = 0
+    used_word_lst = []
+    user_num = 0
+    round_com = 1
+    user_lst = []
+    game_started = False
+    start_time = 0
+    end_time = 0
+    user_point_dic = {}
+    id_user_dic = {}
+    user_role_dic = {}
+    username_id_dic = {}
+    id_username_dic = {}
+    chor = 0
+    king = 0
+    get_chor = False
+
 def join(bot,update):
     username = update.message.from_user.username
     name = update.message.from_user.first_name
