@@ -161,7 +161,7 @@ def whoischor(bot,update):
 
 
 def allot_role(bot=None,update=None):
-    global count, solder, chor, get_chor, round_com, user_lst, rounds, user_role_lst, game_condn
+    global rounds,group_lst,get_chor,GROUP,username_lst,chatid_lst,name_lst,whose_chance,used_word_lst,user_num,round_com,user_lst,game_started,start_time,end_time,user_point_dic,id_user_dic,user_role_dic,username_id_dic,id_username_dic,chor,king
     local_user_lst = []
     #user_role_lst = []
     if round_com < rounds:
@@ -208,6 +208,27 @@ def allot_role(bot=None,update=None):
         
     else:
         bot.send_message(GROUP, "GAME FINISHED!!!")
+        group_lst = []
+        GROUP = update.message.chat_id
+        username_lst = []
+        chatid_lst = []
+        name_lst = []
+        whose_chance = 0
+        used_word_lst = []
+        user_num = 0
+        round_com = 1
+        user_lst = []
+        game_started = False
+        start_time = 0
+        end_time = 0
+        user_point_dic = {}
+        id_user_dic = {}
+        user_role_dic = {}
+        username_id_dic = {}
+        id_username_dic = {}
+        chor = 0
+        king = 0
+        get_chor = False
 
 def startRMCSA(bot,update):
     global game_started
