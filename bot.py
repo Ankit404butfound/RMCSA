@@ -280,10 +280,10 @@ def newRMCSA(bot,update):
         king = 0
         get_chor = False
         update.message.reply_text(f"Starting new game with {rounds} rounds.\nType /joinRMCSA to join the game.")
-        updater.dispatcher.add_handler(CommandHandler("joinRMCSA",join))
-        updater.dispatcher.add_handler(CommandHandler("startRMCSA",startRMCSA))
+        updater.dispatcher.add_handler(CommandHandler("join_rmcsa",join))
+        updater.dispatcher.add_handler(CommandHandler("start_rmcsa",startRMCSA))
         updater.dispatcher.add_handler(MessageHandler(Filters.text,whoischor))
-        updater.dispatcher.add_handler(CommandHandler("cancelRMCSA",cancel))
+        updater.dispatcher.add_handler(CommandHandler("cancel_rmcsa",cancel))
         
     else:
         update.message.reply_text(f"A game is already running")
