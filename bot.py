@@ -205,6 +205,9 @@ def allot_role(bot=None,update=None):
             suspect_str = suspect_str + "/" + users + "\n"
         bot.send_message(solder,"Who do you think is CHOR(Thief)\n"+  suspect_str)
         get_chor = True
+        
+    else:
+        bot.send_message(GROUP, "GAME FINISHED!!!")
 
 def startRMCSA(bot,update):
     global game_started
@@ -259,6 +262,7 @@ def newRMCSA(bot,update):
         updater.dispatcher.add_handler(CommandHandler("joinRMCSA",join))
         updater.dispatcher.add_handler(CommandHandler("startRMCSA",startRMCSA))
         updater.dispatcher.add_handler(MessageHandler(Filters.text,whoischor))
+        updater.dispatcher.add_handler(CommandHandler("cancelRMCSA",cancel))
         
     else:
         update.message.reply_text(f"A game is already running")
